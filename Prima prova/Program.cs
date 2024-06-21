@@ -16,20 +16,51 @@
             Console.Write("Cognome: ");
             c.Cognome = Console.ReadLine();
 
-           Console.Write("Data di nascita (gg/mm/aaaa): ");
-           string dataNascitaInput = Console.ReadLine();
-           c.DataNascita = DateTime.ParseExact(dataNascitaInput, "dd/MM/yyyy", null);
+           
+            while (true)
+            {
+                Console.Write("Data di nascita (gg/mm/aaaa): ");
+                string dataNascitaInput = Console.ReadLine();
+                try
+                {
+                    c.DataNascita = DateTime.ParseExact(dataNascitaInput, "dd/MM/yyyy", null);
+                    break;
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("errore data non valida");
+
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Errore durante la conversione della data: {ex.Message}");
+                }
+            }
+
+            while (true)
+            {
+                Console.Write("sesso scrivi uno di questi (uomo/donna/robot): ");
+                string sessoInput = Console.ReadLine();
+
+                try
+                {
+                    c.Genere = (Sesso)Enum.Parse(typeof(Sesso), sessoInput, true);
+                    break;
+                }
+                catch(FormatException) 
+                {
+                    Console.WriteLine("errore genere non valido");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"errore dati: {ex.Message}");
+                }
 
 
 
 
-
-
-            Console.Write("sesso (uomo/donna/robot): ");
-            string sessoInput = Console.ReadLine();
-            c.Genere = (Sesso)Enum.Parse(typeof(Sesso), sessoInput, true);
-
-
+            }
             Console.WriteLine("Codice fiscale: ");
             c.Codice = Console.ReadLine(); 
 
@@ -50,7 +81,7 @@
             Console.WriteLine($"nato il {c.DataNascita.ToString("dd/MM/yyyy")} ({c.Genere})");
             Console.WriteLine($"residente in {c.Comune}, ");
             Console.WriteLine($"codice fiscale: {c.Codice}, ");
-            Console.WriteLine($"reddito dichiarato: £ {c.Reddito:0.00}");
+            Console.WriteLine($"reddito dichiarato: £ {c.Reddito:0.00}"); //in sterline perchè si
             Console.WriteLine($"IMPOSTA DA VERSARE: £ {imposta:0.00}");
 
 
